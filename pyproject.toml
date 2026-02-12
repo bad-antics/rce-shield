@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rce-shield"
+version = "1.0.0"
+description = "Remote Code Execution hardening toolkit for PC gamers"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "bad-antics", email = "nullsec@proton.me"}
+]
+keywords = ["security", "gaming", "rce", "hardening", "vulnerability-scanner"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security",
+    "Topic :: Games/Entertainment",
+]
+
+dependencies = [
+    "click>=8.1",
+    "rich>=13.0",
+    "psutil>=5.9",
+    "pyyaml>=6.0",
+    "jinja2>=3.1",
+    "requests>=2.31",
+    "watchdog>=3.0",
+    "pefile>=2023.2.7; sys_platform == 'win32'",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "mypy>=1.5",
+    "ruff>=0.1",
+    "black>=23.0",
+]
+
+[project.scripts]
+rce-shield = "rce_shield.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/bad-antics/rce-shield"
+Repository = "https://github.com/bad-antics/rce-shield"
+Issues = "https://github.com/bad-antics/rce-shield/issues"
+
+[tool.setuptools.packages.find]
+include = ["rce_shield*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "S", "B"]
+ignore = ["S603", "S607"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
